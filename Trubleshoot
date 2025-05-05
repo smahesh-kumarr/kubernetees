@@ -1,0 +1,68 @@
+# 🚀 Kubernetes Single-Node Cluster on Ubuntu 22.04
+
+This guide sets up a lightweight Kubernetes (K8s) single-node cluster using `kubeadm` on Ubuntu 22.04. It is suitable for practice, development, and learning.
+
+---
+
+## ✅ Prerequisites
+
+- Ubuntu 22.04 VM (4GB RAM minimum)
+- Root/sudo access
+- Internet connectivity
+- Swap disabled
+
+---
+
+## 🛠️ Installation Steps
+
+Follow the official guide provided in the installation script or instructions (already completed).
+
+---
+
+## 🔁 What To Do After VM Reboot / Shutdown
+
+If you **shut down** or **restart** your Ubuntu VM, follow these steps to bring the Kubernetes cluster back up:
+
+---
+
+### 🧩 Step 1: Start Required System Services
+
+```bash
+sudo systemctl start containerd
+sudo systemctl start kubelet
+
+sudo systemctl enable containerd
+sudo systemctl enable kubelet
+
+```
+
+### 🧠 Step 2: Ensure Cluster is Ready
+
+```bash
+kubectl get nodes
+kubectl get pods -A
+```
+
+### ❌ Troubleshooting
+
+```bash
+kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.27.0/manifests/calico.yaml
+```
+
+### kubectl command fails?
+## Kubeconfig again (if not persistent):
+
+```bash
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+```
+
+
+### 🧹 Reset the Cluster (if needed)
+
+```bash
+sudo kubeadm reset -f
+sudo rm -rf ~/.kube
+sudo systemctl restart containerd
+```

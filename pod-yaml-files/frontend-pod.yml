@@ -1,0 +1,22 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: blog-frontend
+  labels:
+    app: blog
+    env: test
+spec:
+  containers:
+    - name: frontend
+      image: maheshkumars772/frontend
+      ports:
+        - containerPort: 3000
+          protocol: TCP
+      resources:
+        limits:
+          cpu: 250m
+          memory: 256Mi
+        requests:
+          cpu: 100m
+          memory: 128Mi
