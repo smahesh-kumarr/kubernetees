@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-demo
+  labels:
+    env: demo-env
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web
+      env: dev
+  template:
+    metadata:
+      labels:
+        app: web
+        env: dev  # Fixed to match selector
+    spec:
+      containers:  # Fixed typo from contianers
+        - name: my-app-container
+          image: nginx:1.14.2
+          ports:
+            - containerPort: 80

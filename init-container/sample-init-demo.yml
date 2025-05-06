@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Pod
+metadata:  # Fixing typo from "metaData" to "metadata"
+  name: my-init-demo
+  labels:
+    app: init-demo
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+      imagePullPolicy: IfNotPresent
+      ports:
+        - containerPort: 80
+      volumeMounts:
+        - name: workdir
+          mountPath: /usr/share/nginx/html
+  initContainers:  # Fixed typo from "intiContainers" to "initContainers"
+    - name: install
+      image: alpine
+      command:
+        - wget
+        - -O
+        - /work-dir/index.html  # Corrected path to match mount path
+        - https://raw.githubusercontent.com/smahesh-kumarr/kubernetees/main/index.html  # Corrected GitHub URL
+      volumeMounts:
+        - name: workdir
+          mountPath: /work-dir
+  dnsPolicy: Default
+  volumes:
+    - name: workdir
+      emptyDir: {}  # Ensure there's a volume definition for workDir
