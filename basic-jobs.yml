@@ -1,0 +1,15 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: demo-job
+spec:
+  template:
+    spec:
+      containers:
+        - name: my-job
+          image: busybox
+          command: ["/bin/sh"]
+          args:
+            - -c
+            - echo 'Welcome Brother I am Mahesh Job container Testing Demo'
+      restartPolicy: Never
