@@ -9,5 +9,5 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 80
-      nodePort: 32100 #incase apps need to choose a speicf server 
+#      nodePort: 32100 #incase apps need to choose a speicf server 
   type: NodePort    # type not needed when ClusterIP
