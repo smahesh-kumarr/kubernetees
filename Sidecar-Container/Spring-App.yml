@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: springboot-logging
+spec:
+  volumes:
+  - name: log-volume
+    emptyDir: {}
+
+  containers:
+
+  - name: springboot-app
+    image: myorg/springboot-app:latest
+    volumeMounts:
+    - name: log-volume
+      mountPath: /var/log/myapp
+
+  - name: fluentd
+    image: fluent/fluentd:latest
+    volumeMounts:
+    - name: log-volume
+      mountPath: /fluentd/log
+    env:
+    - name: FLUENT_ELASTICSEARCH_HOST
+      value: "elasticsearch.default.svc"
