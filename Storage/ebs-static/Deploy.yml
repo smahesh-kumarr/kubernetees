@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: multi-container-deployment
+  labels:
+    app: multi-container
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: multi-container
+  template:
+    metadata:
+      labels:
+        app: multi-container
+    spec:
+      containers:
+      - name: container-writing-dates
+        image: alpine
+        command: ["/bin/sh"]
+        args: ["-c", "while true; do date >> /mnt/efs/index.html; sleep 10; done"]
+        volumeMounts:
+        - name: efs-storage 
+          mountPath: /mnt/efs 
+
+      - name: container-serving-dates
+        image: nginx
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: efs-storage
+          mountPath: /usr/share/nginx/html 
+      volumes:
+      - name: efs-storage
+        persistentVolumeClaim:
+          claimName: static-pvc
