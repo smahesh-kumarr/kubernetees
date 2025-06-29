@@ -45,3 +45,4 @@ kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.27.0/
 echo "✅ Kubernetes cluster reset and reinitialized successfully!"
 kubectl get nodes
 
+kubectl taint nodes k8s-master node-role.kubernetes.io/control-plane:NoSchedule- 
