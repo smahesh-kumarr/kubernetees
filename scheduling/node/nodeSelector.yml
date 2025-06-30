@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo
+  labels:
+    app: nginx
+    env: production
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      env: production
+  template:
+    metadata:
+      labels:
+        app: nginx
+        env: production
+    spec:
+      nodeSelector:
+        env: prod    # ✅ fixed indentation
+      containers:
+        - name: demo
+          image: ubuntu:latest
+          command: ["/bin/sh"]
+          args: ["-c", "sleep 1000"]

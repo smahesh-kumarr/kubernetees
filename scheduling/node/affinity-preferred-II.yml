@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo
+  labels:
+    app: nginx
+    env: production
+spec:
+  replicas: 6
+  selector:
+    matchLabels:
+      app: nginx
+      env: production
+  template:
+    metadata:
+      labels:
+        app: nginx
+        env: production
+    spec:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 50
+              preference:
+                matchExpressions:
+                  - key: env
+                    operator: In
+                    values:
+                      - prod
+                      - devops
+      containers:
+        - name: demo
+          image: nginx
+          ports:
+            - containerPort: 80

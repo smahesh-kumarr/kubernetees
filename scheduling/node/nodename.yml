@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nodename-demo
+spec:
+  nodeName: k8s-master
+  containers:
+    - name: demo
+      image: ubuntu:latest 
+      command: ["/bin/sh"]
+      args: ["-c", "sleep 1000"]
