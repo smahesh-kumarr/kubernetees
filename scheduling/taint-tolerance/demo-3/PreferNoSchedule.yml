@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-prefer-no-schedule
+  labels:
+    app: nginx
+    env: production
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      env: production
+  template:
+    metadata:
+      labels:
+        app: nginx
+        env: production
+    spec:
+      tolerations:
+        - key: "dedicated"
+          operator: "Equal"
+          value: "special15-user"
+          effect: "PreferNoSchedule"
+      containers:
+        - name: nginx-container
+          image: nginx
+          ports:
+            - containerPort: 80
+

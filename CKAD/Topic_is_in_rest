@@ -1,0 +1,22 @@
+Props
+Multi-Node Set up
+Namespace 
+Autoscaling HPA vs VPA
+SSL/TLS 
+RBAC ABAC WebHook 
+Service Account 
+Network Policies 
+DNS | Core DNS 
+Ingress 
+ETCD Backup 
+Monitoring & Logging Kubernetes
+Troubleshooting
+kustomize 
+Pod Priority and Preemption
+Gateway API and Ingress API 
+Kubernetes Operators 
+Pod Admission Webhook 
+Pod Security 
+Multi Master Set up 
+
+More Practice needed

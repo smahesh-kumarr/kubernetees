@@ -1,0 +1,28 @@
+apiVersion: apps/v1 
+kind: Deployment 
+metadata:
+  name: demo-no-execute 
+  labels:
+    app: nginx 
+    env: production 
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      env : production 
+  template :
+    metadata :
+      labels :
+        app : nginx 
+        env : production 
+    spec :
+      tolerations :
+        - key : "dedicated" 
+          operator : "Equal" 
+          value : "special-user" 
+          effect : "NoExecute" 
+      containers :
+        - name : nginx-container
+          image : nginx
+          ports :
+            - containerPort : 80
