@@ -1,0 +1,5 @@
+---
+releases:
+  - name: python-hello
+    chart: ./hello
+    installed: false
