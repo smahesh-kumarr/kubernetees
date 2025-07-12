@@ -1,0 +1,9 @@
+resources:
+  - db/db-config.yaml
+  - db/db-service.yaml
+  - db/db-deploy.yaml
+  - message-broker/message-config.yaml
+  - message-broker/message-deploy.yaml
+  - nginx/nginx-deploy.yaml
+  - nginx/nginx-service.yaml
+

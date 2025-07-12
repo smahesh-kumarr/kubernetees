@@ -1,0 +1,7 @@
+namePrefix: test-
+
+resources:
+  - ../../base
+
+patchesStrategicMerge:
+  - deployment-test.yaml
