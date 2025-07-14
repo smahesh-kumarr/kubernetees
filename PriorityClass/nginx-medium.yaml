@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-medium
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-medium
+  template:
+    metadata:
+      labels:
+        app: nginx-medium
+    spec:
+      priorityClassName: medium-priority
+      containers:
+      - name: nginx-medium-container
+        image: maheshkumars772/nginx:latest
+        resources:
+          requests:
+            cpu: "1"
+            memory: "200Mi"
+          limits:
+            cpu: "1"
+            memory: "200Mi"
+        ports:
+        - containerPort: 80

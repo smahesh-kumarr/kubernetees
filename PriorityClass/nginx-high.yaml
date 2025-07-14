@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-high
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-high
+  template:
+    metadata:
+      labels:
+        app: nginx-high
+    spec:
+      priorityClassName: high-priority
+      containers:
+      - name: nginx-high-container
+        image: maheshkumars772/nginx:latest
+        resources:
+          requests:
+            cpu: "2"
+            memory: "300Mi"
+          limits:
+            cpu: "2"
+            memory: "300Mi"
+        ports:
+        - containerPort: 80
