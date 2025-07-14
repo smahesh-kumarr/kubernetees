@@ -1,0 +1,26 @@
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  name: enforce-latest-tag
+webhooks:
+  - name: enforce-latest.mahesh.com
+    clientConfig:
+      service:
+        name: webhook-service
+        namespace: default
+        path: "/validate"
+        port: 443
+      caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURMVENDQWhXZ0F3SUJBZ0lVZFRNYmIramJkRDFlREZNQTRsdHp4N0Iva0R3d0RRWUpLb1pJaHZjTkFRRUwKQlFBd0pqRWtNQ0lHQTFVRUF3d2JkMlZpYUc5dmF5MXpaWEoyYVdObExtUmxabUYxYkhRdWMzWmpNQjRYRFRJMQpNRGN4TkRBNU1qZzBOVm9YRFRJMk1EY3hOREE1TWpnME5Wb3dKakVrTUNJR0ExVUVBd3diZDJWaWFHOXZheTF6ClpYSjJhV05sTG1SbFptRjFiSFF1YzNaak1JSUJJakFOQmdrcWhraUc5dzBCQVFFRkFBT0NBUThBTUlJQkNnS0MKQVFFQXZXdk9JR29iUExaMWsva1NZV29lbW9TbUdQMW16eVl0eUlZVmY2dUwzbUt3RWVybWlzUHNTSEFqVXBhRwp4bjNCWVR3S29IellOcVRBV0JRcUhYMnNQRjk5SXBWVk5qbGRnMENCYTZGS2YybEk3Uzdqd21xT0RtME5RcnRxCmFUbVBCUVRkK28vNjdBTHhKMVBiNU5rakJIcS9nZXBxUDNCZnM0NVZ1T242S1orelYxd0FTU2U5U3IwamRZUmEKWjhTWEw2bVlHTnZWbVdYZjFwOXFaTFF6ZEVxd0hvYjM1cHR5SzE5dktKQmpTUFJkVjhyL0lid1FzWUNwdkVtRwpzN2twK0pGaFlTRyt2Wi9kUm9udUluZ3BLSkplb1NiSitCV09NVFFVZCtwa1JnNkljNkpDK1pFUGtmU25RYys3CmxDbW8ySGFpUVJ4TWU0Ny85MzVtRHpwZGR3SURBUUFCbzFNd1VUQWRCZ05WSFE0RUZnUVVDVzJzU2pUaDdrRVUKWGRaenRaTFNjeUNsSWVBd0h3WURWUjBqQkJnd0ZvQVVDVzJzU2pUaDdrRVVYZFp6dFpMU2N5Q2xJZUF3RHdZRApWUjBUQVFIL0JBVXdBd0VCL3pBTkJna3Foa2lHOXcwQkFRc0ZBQU9DQVFFQXUvZVFQZnE1dUxDdzZhMEhqWEdSCitZa1pBRWkwREtSWU0xVHI5Vks5c081MzB1UDZiUU84cDNScU42WHdOMTNBWW5RWTU5eWxqM1ZrYVZiSmpuOGYKMFpxWmJieHVTMFc2NDVMZkQ4eC91ZEUvOHFRZmRYYnVSRlI5Z1NXZzRUQ2tlQWpWaUhyUnZEdDVmdWVSb3BiNwpWTFdKWVhyLzVZdndYbEpjL0F2YnRKRkZiQldMWVVwbXFlSUFDZDRTbFgza21wMXBIQ0FhZ3BqNC9kRFgvcGpEClUxajVhYVdKVHZINXpWTHBSUXhreG1OSG54WWxGclpBS1ZXTFZUMElEWHZyZUZuNmx5NndYZ0RVU25objFlUkcKSitUSlNaRURZVWtSc0FiQ3FwdzV1Q3U2TGhZL2hieGQ4b3dGQU55K2drTzF6azVsRmNjYmNjNy91YVJkRWkrKwowUT09Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+    rules:
+      - apiGroups: [""]
+        apiVersions: ["v1"]
+        operations: ["CREATE", "UPDATE"]
+        resources: ["pods"]
+    failurePolicy: Fail
+    sideEffects: None
+    admissionReviewVERSIONS: ["v1"]
+    namespaceSelector:
+      matchExpressions:
+        - key: kubernetes.io/metadata.name
+          operator: NotIn
+          values: ["kube-system", "kube-public"]
